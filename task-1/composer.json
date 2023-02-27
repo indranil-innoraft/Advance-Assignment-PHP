@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "classmap": [
+            "fetchingData.php",
+            "Data.php"
+        ]
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    }
+}
