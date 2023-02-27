@@ -1,0 +1,21 @@
+.container{
+    width: 1180px;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body{
+    background-color: black;
+}
+
+.message-section{
+  padding: 10px;
+  align-items: center;
+  color:yellow;
+}

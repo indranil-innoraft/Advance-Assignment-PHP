@@ -1,0 +1,4 @@
+vendor/
+*.josn
+*.lock
+confidential.php
