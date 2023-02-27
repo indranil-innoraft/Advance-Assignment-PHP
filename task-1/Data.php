@@ -1,7 +1,7 @@
 <?php
 
-class Data
-{
+class Data {
+  
   /**
    * @var title
    *   storing the title.
@@ -12,6 +12,7 @@ class Data
    *  @var button
    *   storing the link.
    */
+
   public  $image = [];
   public $title = [];
   public $list = [];

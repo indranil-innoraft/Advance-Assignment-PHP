@@ -15,7 +15,9 @@
   <?php require './action.php'; ?>
 
   <div class="container">
-    <?php for ($i = 0; $i < 6; $i++) { ?>
+
+    <?php for ($i = 0; $i < count($fetchingData->title); $i++) { ?>
+
       <div class="flex-between">
         <div class="left flex">
           <img src="<?php echo $fetchingData->image[$i]; ?>" alt="image" />

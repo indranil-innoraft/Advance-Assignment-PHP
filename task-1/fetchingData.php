@@ -1,21 +1,24 @@
 <?php
 require_once './vendor/autoload.php';
 
+define("baseUri","https://www.innoraft.com/");
 
-class FetchData extends Data
-{
+class FetchData extends Data {
+  
   /**
    * Fetching data from https://www.innoraft.com/jsonapi/node/services API.
    *
    * @return void
    */
-  public function fetchBody()
-  {
-    $client = new GuzzleHttp\Client(['base_uri' => 'https://www.innoraft.com/']);
+
+  public function fetchData() {
+    $client = new GuzzleHttp\Client(['base_uri' => constant("baseUri")]);
     $response = $client->request('GET', '/jsonapi/node/services');
+    //Getting JSON data.
     $body = $response->getBody()->getContents();
-    $arrayBody = json_decode($body);
-    $this->fetchText($arrayBody);
+    //Convert JSON data into an object.
+    $data = json_decode($body);
+    $this->storeInArray($data);
   }
 
   /**
@@ -24,15 +27,19 @@ class FetchData extends Data
    * @param string $arrayBody
    * @return void
    */
-  public function fetchText($arrayBody)
-  {
-    $baseUri = "https://www.innoraft.com/";
-    foreach ($arrayBody->data as $data) {
-      if ($data->attributes->field_services->value != null) {
+
+  public function storeInArray($fetchData) {
+
+    foreach ($fetchData->data as $data) {
+      if ($data->attributes->field_services->value != NULL) {
+        //Store titles into tile array.
         array_push($this->title, $data->attributes->title);
+        //Store unorder list into list array.
         array_push($this->list, $data->attributes->field_services->processed);
-        array_push($this->button, $baseUri . $data->attributes->path->alias);
-        array_push($this->image, $baseUri . $this->fetchImages($data->relationships->field_image->links->related->href));
+        //Store links into button array.
+        array_push($this->button, constant("baseUri") . $data->attributes->path->alias);
+        //Store the images into image array.
+        array_push($this->image, constant("baseUri") . $this->fetchImages($data->relationships->field_image->links->related->href));
       }
     }
   }
@@ -43,12 +50,14 @@ class FetchData extends Data
    * @param string $imageLink
    * @return string
    */
-  public function fetchImages($imageLink)
-  {
+
+  public function fetchImages($imageLink) {
     $client = new GuzzleHttp\Client();
     $response = $client->request('GET', $imageLink);
+    //Getting JSON data.
     $body = $response->getBody()->getContents();
-    $arrayBody = json_decode($body);
-    return ($arrayBody->data->attributes->uri->url);
+    //Converting JSON data into an object.
+    $imageObject = json_decode($body);
+    return ($imageObject->data->attributes->uri->url);
   }
 }
