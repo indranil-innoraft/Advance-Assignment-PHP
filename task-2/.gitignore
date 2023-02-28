@@ -1,4 +1,4 @@
 vendor/
-*.json
+composer.json
 *.lock
 confidential.php
